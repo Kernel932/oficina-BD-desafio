@@ -1,0 +1,168 @@
+-- Criação de Banco de Dados para cenário de oficina versão Kern Galvão - Parte 01
+
+-- DROP DATABASE oficina;
+-- DROP TABLE Cliente;
+-- 
+CREATE DATABASE oficina;
+-- 
+USE oficina;
+-- Desc Cliente;
+
+-- Criando Tabela de Clientes
+
+CREATE TABLE Cliente(
+		idCliente int auto_increment primary key,
+        Razão varchar(50) not null,
+        CCPF char(11),
+        CCNPJ char(15),
+        Rua varchar(20) not null,
+        Cidade varchar(35) not null,
+        num int,
+        Bairro varchar(35),
+        Estado char(2),
+        Constraint unique_cpf unique (CCPF),
+        Constraint unique_cnpj unique (CCNPJ)
+);
+alter table Cliente auto_increment=1;
+
+
+-- Criando Tabela de Veículo
+
+CREATE TABLE Veiculo(
+		idVeiculo int auto_increment primary key,
+        idVxCliente int,
+        Placa char(7),
+        Modelo varchar(60) not null,
+        Renavam varchar(100),
+        Chassi varchar(60) not null,
+        Cor varchar(30) not null,
+        constraint unique_chassi unique (Chassi),
+        constraint unique_renavam unique (Renavam),
+        constraint ck_veiculo_cliente foreign key (idVxCliente) references Cliente(idCliente)
+);
+
+alter table Veiculo auto_increment=1;
+
+-- Criando Tabela de Mecânicos
+
+CREATE TABLE Mecanico(
+		idMecanico int auto_increment primary key,
+        MNome varchar(50) not null,
+        MCPF char(11) not null,
+        Supervisor enum('SIM','NÃO') not null,
+        Especialista enum('SIM','NÃO') not null,
+        Especialidade enum('Elétrica e eletrônica','Sistemas de arrefecimento','Freios','Amortecedores e suspensões','Sistemas de transmissão','Câmbio automático','Direção hidráulica', 'Lanternagem', 'Mecânica Geral') not null,
+        Cidade varchar(35) not null,
+        num int,
+        Bairro varchar(35),
+        Constraint unique_cpf unique (MCPF)
+
+);
+alter table Mecanico auto_increment=1;
+
+-- Criando Tabela Manut (Serviços de Manutenção)
+-- atributo 'Tempo' dem dias representa o tempo para execução do serviço
+
+CREATE TABLE SManut(
+		idSManut int auto_increment primary key,
+        Descrição enum('Elétrica e eletrônica','Sistemas de arrefecimento','Freios','Amortecedores e suspensões','Sistemas de transmissão','Câmbio automático','Direção hidráulica','Lanternagem','Mecânica Geral') not null,
+        SValor float not null,
+        Tempo int not null
+);
+
+alter table SManut auto_increment=1;
+
+
+-- Criando Tabela Peças
+
+CREATE TABLE Pecas(
+		idPecas int auto_increment primary key,
+        Pnome varchar(60) not null,
+        Unidade enum('LT','Kg','Und') not null,
+        Descrição varchar(100),
+        Qembalagem int not null,
+        PValor float not null,
+        constraint unique_Nome unique (Pnome)
+);
+
+alter table Pecas auto_increment=1;
+
+-- Criando Tabela Equipe
+
+CREATE TABLE Equipe(
+    idEquipe INT AUTO_INCREMENT PRIMARY KEY,
+    idRespTecn INT,
+    Enome varchar(40),
+    Oficina ENUM('01', '02', '03', '04') NOT NULL,
+    CONSTRAINT unique_Nome UNIQUE (Enome),
+    constraint ck_orc_resp foreign key (idRespTecn) references Mecanico(idMecanico)
+    
+);
+
+alter table Equipe auto_increment=1;
+
+
+
+
+
+CREATE TABLE Orcamento(
+    idOrcamento INT AUTO_INCREMENT PRIMARY KEY,
+    idORespTecn INT,
+	idOVeiculo INT,
+    idOCliente INT,
+    idOEquipe int,
+    Oficina ENUM('01', '02', '03', '04') NOT NULL,
+    constraint ck_or_resp foreign key (idORespTecn) references Mecanico(idMecanico),
+    constraint ck_or_vei foreign key (idOVeiculo) references Veiculo(idVeiculo),
+    constraint ck_or_cli foreign key (idOCliente) references Cliente(idCliente)
+    
+);
+
+alter table Orcamento auto_increment=1;
+
+-- Criando Tabela OS
+
+CREATE TABLE OS(
+		idOS int auto_increment primary key,
+        idOR INT,
+        StatusOS enum('Executando','Finalizado','Pendente') default 'Executando',
+        Obs varchar(200),
+        constraint ck_os_or foreign key (idOR) references Orcamento(idOrcamento)
+
+);
+
+alter table OS auto_increment=1;
+
+-- Criando Tabela de Relacionamento NXM Oçamento x Serviços
+
+CREATE TABLE OrxSer(
+		idOrxSer_orc int,
+		idOrxSer_ser int,
+        primary key (idOrxSer_orc, idOrxSer_ser),
+        constraint fk_OrxSer_orc foreign key (idOrxSer_orc) references Orcamento(idOrcamento),
+        constraint fk_OrxSer_ser foreign key (idOrxSer_ser) references SManut(idSManut)
+);
+
+-- Criando Tabela de Relacionamento NXM Oçamento x Peças
+
+CREATE TABLE OrxPecas(
+		idOrxPecas_orc int,
+		idOrxPecas_pecas int,
+        primary key (idOrxPecas_orc, idOrxPecas_pecas),
+        constraint fk_OrxPecas_orc foreign key (idOrxPecas_orc) references Orcamento(idOrcamento),
+        constraint fk_OrxPecas_pecas foreign key (idOrxPecas_pecas) references Pecas(idPecas)
+);
+
+
+-- Criando Tabela de Relacionamento NXM Equipe x Mecânicos
+
+CREATE TABLE EqpxMec(
+		idEqpxMec_eqp int,
+		idEqpxMec_mec int,
+        primary key (idEqpxMec_eqp, idEqpxMec_mec),
+        constraint fk_EqpxMec_eqp foreign key (idEqpxMec_eqp) references Equipe(idEquipe),
+        constraint fk_EqpxMec_mec foreign key (idEqpxMec_mec) references Mecanico(idMecanico)
+);
+
+SHOW TABLES;
+
