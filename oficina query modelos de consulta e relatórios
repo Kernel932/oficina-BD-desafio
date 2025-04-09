@@ -1,0 +1,74 @@
+-- Criando Consultas e Relatórios apartir dos dados para cenário de oficina versão Kern Galvão - Parte 03
+
+
+-- Consulta 01 - Quais São meus Clientes e onde Moram?
+
+select Razão as Nome_Completo, Cidade from Cliente; 
+
+
+-- Consulta 02 - Quais carros e seus respectivos Donos já passaram ou estão na minha oficina?
+                
+        
+select Razão as Nome_Completo, Modelo, Placa from  Cliente c, Veiculo v
+				where v.idVxCliente = c.idCliente
+                order by Razão;
+                
+                
+-- Consulta 03 - Quais os serviços de repara mais solicitados? 
+
+        
+select Descrição AS Nome_do_Serviço, count(idOrxSer_ser) AS Solicitações_de_Reparo from  SManut s, OrxSer o
+					where o.idOrxSer_ser = s.idSManut
+                    group by Descrição
+                    order by Solicitações_de_Reparo desc;
+                    
+                    
+-- Consulta 04 - Quais veículos mais apresentaram problemas?
+
+select Modelo, Placa, count(idOrxSer_ser) AS Solicitações_de_Reparo  from  OrxSer o, Veiculo v, Orcamento r
+		where o.idOrxSer_orc = r.idOrcamento and r.idOVeiculo = v.idVeiculo
+		group by Placa, Modelo
+        order by Solicitações_de_Reparo desc;
+        
+-- Consulta 04 - Quais veículos tiveram as manutenções mais caras de serviços no orçamento?
+
+select Modelo, placa,  round(sum(SValor),2) AS Valor_Total_da_Manutenção  from  OrxSer o, Veiculo v, Orcamento r, SManut p
+		where o.idOrxSer_orc = r.idOrcamento and o.idOrxSer_ser = p.idSManut and v.idVeiculo = r.idOVeiculo
+		group by Modelo, placa
+        order by Valor_Total_da_Manutenção desc;
+        
+-- Consulta 05 - Quais veículos e Serviços Executados e requizitados pelas equipes?
+
+select Modelo, Placa, Descrição AS Serviço_Executado, count(Descrição) as Quantidade  from  OrxSer o, Veiculo v, Orcamento r, SManut p
+		where o.idOrxSer_orc = r.idOrcamento and r.idOVeiculo = v.idVeiculo and o.idOrxSer_ser = p.idSManut
+		group by Placa, Modelo, Descrição
+        order by Modelo desc;
+
+
+
+-- Consulta 06 - Quais Peças foram requisitadas e utilizadas nas Manutenções destes veículos?
+
+select Modelo, Placa, Pnome AS Serviço_Executado, count(Pnome) as Quantidade  from  OrxPecas o, Veiculo v, Orcamento r, Pecas p
+		where o.idOrxPecas_orc = r.idOrcamento and r.idOVeiculo = v.idVeiculo and o.idOrxPecas_pecas = p.idPecas
+		group by Placa, Modelo, Pnome
+        order by Modelo desc;
+        
+        
+-- Consulta 07 - Quais veículos tiveram as manutenções mais caras de peças no orçamento?
+
+select Modelo, placa,  round(sum(PValor),2) AS Valor_Total  from  OrxPecas o, Veiculo v, Orcamento r, Pecas p
+		where o.idOrxPecas_orc = r.idOrcamento and o.idOrxPecas_pecas = p.idPecas and v.idVeiculo = r.idOVeiculo
+		group by Modelo, placa
+        order by Valor_Total desc;
+                
+-- Consulta 08 - Quais os veículos que tiveram as manutenções acima de R$ 5000,00 incluindo serviço e peças?
+
+select Modelo, placa,  round(sum(PValor + SValor),2) AS Valor_Total_Orçamento from  OrxPecas o, Veiculo v, Orcamento r, Pecas p, SManut q, OrxSer z
+		where o.idOrxPecas_orc = r.idOrcamento and o.idOrxPecas_pecas = p.idPecas and v.idVeiculo = r.idOVeiculo and 
+        z.idOrxSer_orc = r.idOrcamento and z.idOrxSer_ser = q.idSManut
+		group by Modelo, placa
+        having Valor_Total_Orçamento > 5000
+        order by Valor_Total_Orçamento desc;
+        
+-- SELECT * FROM SManut;        
+                           
