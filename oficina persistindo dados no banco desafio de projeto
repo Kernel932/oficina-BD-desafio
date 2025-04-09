@@ -1,0 +1,279 @@
+-- Persistindo dados no Banco de Dados para cenário de oficina versão Kern Galvão - Parte 02
+
+-- 
+USE oficina;
+-- show tables;
+-- Desc Cliente;
+-- SELECT * FROM Veiculo;
+
+-- Persistindo dados na tabela Cliente
+-- idCliente, Razão, CCPF, CCNPJ, Rua, Cidade, num, Bairro, Estado
+
+insert into Cliente (Razão, CCPF, CCNPJ, Rua, Cidade, num, Bairro, Estado)
+			values ('Kern Galvão',	'78854697256',	null,	'AV Juaçuba',	'Barueri',	'22',	'Beira Rio',	'ES'),
+					('Adão Rocha',	'25697418566',	null,	'Rua da Lama',	'Nova Cidade',	'35',	'Beira Corrego',	'ES'),
+					('Eva Silva',	'21569780141',	null,	'Rua Colatina',	'Belo Horizonte',	'87',	'Beira Pista',	'SP'),
+					('Distr. Silva & Galvão',	null,	'325875621000108',	'Rua Veneza',	'Rio de Janeiro',	'2',	'Mambo',	'SP'),
+					('Zione Pessim',	'23633178942',	null,	'Prç Sete',	'Manaus',	null,	'Veadeiro',	'RJ'),
+					('Nelci Bening',	'48700255669',	null,	'Rua Marinho',	'Paris Chique',	'596',	'Galinheiro',	'MG'),
+					('Flávio Salomão Reis',	'89115780067',	null,	'Av Guanabara',	'São Gabriel',	'24',	'Bezerreiro',	'ES'),
+					('Distr. De Alimentos Cricaré',	null,	'159875621000122',	'BR 262',	'Vila Cafona',	null,	'Zuado',	'ES'),
+					('Juliana Mascarenhas',	'33697815422',	null,	'Corrego Sete',	'São Domingos',	'9',	'Sapo Cururu',	'ES');
+                    
+-- Persistindo dados na tabela Veículo
+-- idVeiculo, idVxCliente, Placa, Modelo, Renavam, Chassi, Cor
+
+insert into Veiculo (idVxCliente, Placa, Modelo, Renavam, Chassi, Cor)
+			values ('1',	'MSQ3738',	'Nissan Kicks',	'456987569832',	'456987569832456987569832',	'Cinza'),
+					('2',	'MTT3059',	'Toyota Yaris Cross',	'147987569832',	'147987569832147987569832',	'Vermelho'),
+					('3',	'MTA2424',	'Honda WR-V',	'658987569832',	'658987569832658987569832',	'Preto'),
+					('4',	'MRT2425',	'GWM Haval H6',	'497987569832',	'497987569832497987569832',	'Branco'),
+					('5',	'MSQ4050',	'BYD Song Pro',	'125987569832',	'125987569832125987569832',	'Cinza'),
+					('6',	'MLQ6598',	'Toyota Corolla Cross 2022',	'325687569832',	'325687569832325687569832',	'Preto'),
+					('7',	'MRL4589',	'Toyota Corolla Cross 2019',	'145987569832',	'145987569832145987569832',	'Branco'),
+					('8',	'MNC2598',	'Toyota Corolla Cross 2014',	'125987598832',	'125987479832125987569831',	'Preto'),
+					('9',	'MJT4347',	'VW Fusca 1984',	'115987569832',	'115987569832115987569832',	'Branco'),
+					('1',	'MPO5041',	'Honda Civic Hybrid',	'589987569832',	'589987569832589987569832',	'Cinza'),
+					('2',	'MPU5289',	'Fiat Fastback',	'789587569832',	'789587569832789587569832',	'Branco'),
+					('3',	'MRT1425',	'BMW iX',	'111987569832',	'111987569832111987569832',	'Preto'),
+					('4',	'MQY1425',	'VW KOMBI 1982',	'222987569832',	'222987569832222987569832',	'Cinza'),
+					('5',	'NTF1225',	'Peugeot Landtrek',	'478987569832',	'478987569832478987569832',	'Preto'),
+					('9',	'OPR1496',	'Volkswagen Tiguan',	'455987569832',	'455987569832455987569832',	'Branco'),
+					('8',	'UKO5647',	'VW Fusca 1963',	'885987569832',	'885987569832885987569832',	'Cinza');
+                   
+
+-- Persistindo dados na tabela Mecânico
+-- idMecanico, MNome, MCPF, Supervisor, Especialista, Especialidade, Cidade, num, Bairro
+
+insert into Mecanico (MNome, MCPF, Supervisor, Especialista, Especialidade, Cidade, num, Bairro)
+			values ('Carlos Rangel',	'78854697256',	'SIM',	'SIM',	'Elétrica e eletrônica',	'Barueri',	'15',	'Beira Rio'),
+					('Agnaldo Raiol',	'25697418566',	'NÃO',	'SIM',	'Sistemas de arrefecimento',	'Belo Horizonte',	'23',	'Beira Corrego'),
+					('Gustavo Lima',	'21569780141',	'NÃO',	'NÃO',	'Freios',	'Belo Horizonte',	'68',	'Beira Pista'),
+					('Marcelo Silva',	'47896574589',	'SIM',	'SIM',	'Amortecedores e suspensões',	'Rio de Janeiro',	'47',	'Mambo'),
+					('Flávio Salomão',	'23633178942',	'NÃO',	'SIM',	'Sistemas de transmissão',	'Belo Horizonte',	'15',	'Veadeiro'),
+					('Marcos Binoulf',	'48700255669',	'NÃO',	'NÃO',	'Câmbio automático',	'Belo Horizonte',	'98',	'Galinheiro'),
+					('Zé da Fruteira',	'89115780067',	'SIM',	'SIM',	'Direção hidráulica',	'Belo Horizonte',	'64',	'Bezerreiro'),
+					('Ricardo Delboni',	'15987468503',	'NÃO',	'NÃO',	'Lanternagem',	'Belo Horizonte',	'12',	'Zuado'),
+					('Paulo Henrique',	'33697815422',	'SIM',	'SIM',	'Mecânica Geral',	'Belo Horizonte',	'1200',	'Sapo Cururu'),
+					('Francis Michel',	'78856747026',	'NÃO',	'NÃO',	'Sistemas de arrefecimento',	'Rio de Janeiro',	'135',	'Sapo Cururu');
+                    
+-- Persistindo dados na tabela SManut (Serviços Ofertados Pela Oficina)
+-- idSManut, Descrição, SValor, Tempo
+
+insert into SManut(Descrição, SValor, Tempo)
+			values ('Elétrica e eletrônica',	'600',	'1'),
+					('Sistemas de arrefecimento',	'584.66',	'2'),
+					('Freios',	'147.36',	'2'),
+					('Amortecedores e suspensões',	'159.58',	'1'),
+					('Sistemas de transmissão',	'547',	'2'),
+					('Câmbio automático',	'987.58',	'1'),
+					('Direção hidráulica',	'654.25',	'2'),
+					('Lanternagem',	'148.58',	'1'),
+					('Mecânica Geral',	'986.89',	'3');
+                    
+                    
+-- Persistindo dados na tabela Peças
+-- idPecas, Pnome, Unidade, Descrição, Qembalagem, PValor
+
+insert into Pecas(Pnome, Unidade, Descrição, Qembalagem, PValor)
+			values ('Pastilhas de freio ',	'und',	'Pastilhas de freio ',	'1',	'200.25'),
+					('Correia dentada',	'und',	'Correia dentada',	'1',	'85.25'),
+					('Filtros  Ar',	'und',	'Filtros  Ar',	'1',	'98.14'),
+					('Filtros Oléo',	'und',	'Filtros Oléo',	'1',	'120.5'),
+					('Fluidos Freio',	'und',	'Fluidos Freio',	'1',	'25.6'),
+					('Oléo Motor 5L',	'LT',	'Oléo Motor 5L',	'5',	'252.6'),
+					('Amortecedor',	'und',	'Amortecedor',	'1',	'350.6'),
+					('Cebolinha Radiador',	'und',	'Cebolinha Radiador',	'1',	'24.5'),
+					('Radiador',	'und',	'Radiador',	'1',	'800.9'),
+					('Parafuso',	'und',	'Parafuso',	'2',	'2.5'),
+					('Polca',	'und',	'Polca',	'2',	'2.4'),
+					('Arruela',	'und',	'Arruela',	'2',	'2.8'),
+					('Descarga',	'und',	'Descarga',	'1',	'258.9'),
+					('Biela',	'und',	'Biela',	'1',	'478.6'),
+					('Bronzina',	'und',	'Bronzina',	'1',	'325.9'),
+					('Bobina',	'und',	'Bobina',	'1',	'324.6'),
+					('Chicote Eletrico',	'und',	'Chicote Eletrico',	'1',	'89.7'),
+					('Bateria',	'und',	'Bateria',	'1',	'600.9'),
+					('Lampada Farol',	'und',	'Lampada Farol',	'1',	'25.9'),
+					('Vela Ignição',	'und',	'Vela Ignição',	'1',	'69.6'),
+					('Distribuidor',	'und',	'Distribuidor',	'1',	'785.9');
+                    
+-- Persistindo dados na tabela Equipe
+-- idEquipe, idRespTecn, Enome, Oficina
+
+insert into Equipe(idRespTecn, Enome, Oficina)
+			values ('1',	'Vai Pra Cima',	'01'),
+					('4',	'Elca',	'02'),
+					('5',	'Osmar',	'03'),
+					('7',	'Vem quente',	'04');
+                    
+-- Persistindo dados na tabela Orcamento
+-- idOrcamento, idORespTecn, idOVeiculo, idOCliente, idOEquipe, Oficina
+
+insert into Orcamento (idORespTecn, idOVeiculo, idOCliente, idOEquipe, Oficina)
+			values ('1',	'1',	'1',	'1',	'01'),
+					('4',	'2',	'2',	'2',	'03'),
+					('5',	'3',	'3',	'3',	'02'),
+					('7',	'4',	'4',	'4',	'04'),
+					('5',	'5',	'5',	'2',	'03'),
+					('7',	'6',	'6',	'3',	'02'),
+					('1',	'7',	'7',	'4',	'02'),
+					('5',	'8',	'8',	'2',	'03'),
+					('5',	'9',	'9',	'3',	'02'),
+					('7',	'10',	'2',	'4',	'04'),
+					('4',	'11',	'5',	'2',	'03'),
+					('5',	'12',	'6',	'3',	'02'),
+					('7',	'13',	'7',	'3',	'02'),
+					('5',	'14',	'1',	'4',	'04'),
+					('7',	'15',	'4',	'2',	'03'),
+					('1',	'16',	'6',	'3',	'02'),
+					('5',	'4',	'9',	'3',	'02'),
+					('5',	'5',	'3',	'4',	'04'),
+					('2',	'6',	'5',	'2',	'03'),
+					('3',	'7',	'4',	'3',	'02'),
+					('1',	'8',	'6',	'3',	'02'),
+					('1',	'9',	'8',	'4',	'04'),
+					('4',	'10',	'2',	'2',	'03'),
+					('3',	'11',	'3',	'3',	'02');
+                    
+-- Persistindo dados na tabela OS
+-- idOS, idOR, StatusOS, Obs
+
+insert into OS (idOR, StatusOS, Obs)
+			values ('1',	'Finalizado',	'Revisão'),
+					('2',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('3',	'Executando',	'Aguardando Peças'),
+					('4',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('5',	'Finalizado',	'Junta do Cabeçote'),
+					('6',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('7',	'Executando',	'Tudo Pronto é só buscar'),
+					('8',	'Finalizado',	'Rotina'),
+					('9',	'Executando',	'Tudo Pronto é só buscar'),
+					('10',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('11',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('12',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('13',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('14',	'Executando',	'Aguardando Peças'),
+					('15',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('16',	'Pendente',	'Novos Problemas Surgiram'),
+					('17',	'Executando',	'Tudo Pronto é só buscar'),
+					('18',	'Pendente',	'Novos Problemas Surgiram'),
+					('19',	'Executando',	'Aguardando Peças'),
+					('20',	'Pendente',	'Aguardando Peças'),
+					('21',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('22',	'Finalizado',	'Tudo Pronto é só buscar'),
+					('23',	'Executando',	'Tudo Pronto é só buscar'),
+					('24',	'Pendente',	'Novos Problemas Surgiram');
+                    
+                    
+-- Persistindo dados na tabela nxm OrxSer
+-- idOrxSer_orc, idOrxSer_ser
+
+insert into OrxSer (idOrxSer_orc, idOrxSer_ser)
+			values ('1',	'2'),
+					('2',	'2'),
+					('3',	'5'),
+					('4',	'4'),
+					('5',	'5'),
+					('6',	'6'),
+					('7',	'7'),
+					('8',	'8'),
+					('9',	'9'),
+					('10',	'2'),
+					('11',	'4'),
+					('12',	'5'),
+					('13',	'6'),
+					('14',	'7'),
+					('15',	'8'),
+					('16',	'1'),
+					('17',	'4'),
+					('18',	'5'),
+					('19',	'8'),
+					('20',	'9'),
+					('21',	'1'),
+					('22',	'2'),
+					('23',	'5'),
+					('24',	'4'),
+					('8',	'5'),
+					('9',	'2'),
+					('10',	'1'),
+					('11',	'3'),
+					('12',	'4'),
+					('13',	'9'),
+					('14',	'6'),
+					('15',	'4'),
+					('16',	'2'),
+					('17',	'3'),
+					('18',	'9'),
+					('19',	'1'),
+					('20',	'5');
+                  
+-- Persistindo dados na tabela nxm OrxPecas
+-- idOrxPecas_orc, idOrxPecas_pecas
+
+insert into OrxPecas (idOrxPecas_orc, idOrxPecas_pecas)
+			values  ('1',	'2'),
+					('2',	'2'),
+					('3',	'5'),
+					('4',	'4'),
+					('5',	'19'),
+					('6',	'18'),
+					('7',	'20'),
+					('8',	'8'),
+					('9',	'9'),
+					('10',	'2'),
+					('11',	'4'),
+					('12',	'5'),
+					('13',	'15'),
+					('14',	'7'),
+					('15',	'8'),
+					('16',	'1'),
+					('17',	'17'),
+					('18',	'5'),
+					('19',	'8'),
+					('20',	'9'),
+					('21',	'1'),
+					('22',	'2'),
+					('23',	'5'),
+					('24',	'4'),
+					('8',	'5'),
+					('9',	'12'),
+					('10',	'21'),
+					('11',	'3'),
+					('12',	'10'),
+					('13',	'9'),
+					('14',	'6'),
+					('15',	'13'),
+					('16',	'20'),
+					('17',	'3'),
+					('18',	'9'),
+					('19',	'10'),
+					('20',	'5');
+
+
+-- Persistindo dados na tabela nxm EqpxMec (Equipe Mecânicos)
+-- idEqpxMec_eqp, idEqpxMec_mec
+
+insert into EqpxMec (idEqpxMec_eqp, idEqpxMec_mec)
+			values ('1',	'1'),
+					('2',	'2'),
+					('3',	'3'),
+					('4',	'4'),
+					('1',	'5'),
+					('2',	'6'),
+					('3',	'10'),
+					('4',	'8'),
+					('1',	'9'),
+					('2',	'10'),
+					('3',	'2'),
+					('4',	'1'),
+					('1',	'2'),
+					('2',	'8'),
+					('3',	'7'),
+					('4',	'6');
+                
+                    
+                    
+                    
+
+                    
